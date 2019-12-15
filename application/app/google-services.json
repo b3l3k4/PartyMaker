@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "496617560862",
+    "firebase_url": "https://party-maker-3b936.firebaseio.com",
+    "project_id": "party-maker-3b936",
+    "storage_bucket": "party-maker-3b936.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496617560862:android:74a4b91b8b4478ab5e470f",
+        "android_client_info": {
+          "package_name": "com.b3l3k4.partyMaker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "496617560862-1f8b0ajdhlak753tn2iu6tof6cl3tvra.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.b3l3k4.partyMaker",
+            "certificate_hash": "d9daa50b9726fadc2e45c3bf414afffa967d174f"
+          }
+        },
+        {
+          "client_id": "496617560862-deu83p60n5dll64pl88vsen5hf8b8n1a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFdPeU-FyU4ycAFLzzE-YD2N_q7FFf8ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "496617560862-deu83p60n5dll64pl88vsen5hf8b8n1a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
