@@ -24,10 +24,10 @@
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
-        android:background="@color/white"
+        android:background="@drawable/half_arrow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/backward_arrow" />
+        />
 
     <TextView
         android:id="@+id/textView4"
@@ -35,6 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/CreateANewParty"
+        android:fontFamily="@font/open_sans"
         android:textColor="@color/colorWordsMain"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -59,11 +60,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="22dp"
+        android:fontFamily="@font/open_sans"
         android:text="@string/Title"
         android:textColor="@color/colorWordsMain"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -73,9 +74,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/Date"
+        android:fontFamily="@font/open_sans"
         android:textColor="@color/colorWordsMain"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textTitle"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
@@ -85,9 +86,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/PartyDes"
+        android:fontFamily="@font/open_sans"
         android:textColor="@color/colorWordsMain"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textDate"
         app:layout_constraintTop_toBottomOf="@+id/textDate" />
 
@@ -109,9 +110,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/ApproxPrice"
+        android:fontFamily="@font/open_sans"
         android:textColor="@color/colorWordsMain"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textDescription"
         app:layout_constraintTop_toBottomOf="@+id/textDescription" />
 
@@ -133,9 +134,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/Attendants"
+        android:fontFamily="@font/open_sans"
         android:textColor="@color/colorWordsMain"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textPrice"
         app:layout_constraintTop_toBottomOf="@+id/textPrice" />
 
@@ -153,10 +154,12 @@
 
     <Button
         android:id="@+id/buttonVenue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/find_venue"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/legit_button"
         android:text="@string/FindVenue"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -165,11 +168,13 @@
 
     <Button
         android:id="@+id/buttonCreate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/find_venue"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/legit_button"
         android:text="@string/Create"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -181,11 +186,23 @@
         android:id="@+id/textDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:backgroundTint="@color/colorWordsMain"
         android:ems="10"
         android:inputType="date"
-        android:backgroundTint="@color/colorWordsMain"
         app:layout_constraintEnd_toEndOf="@+id/textTitle"
         app:layout_constraintStart_toStartOf="@+id/partyDate"
         app:layout_constraintTop_toBottomOf="@+id/partyDate" />
+
+    <ImageButton
+        android:id="@+id/calendarButton"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/calendar"
+        app:layout_constraintBottom_toBottomOf="@+id/textDate"
+        app:layout_constraintEnd_toEndOf="@+id/textDescription"
+        app:layout_constraintStart_toEndOf="@+id/textDate"
+        app:layout_constraintTop_toTopOf="@+id/textDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

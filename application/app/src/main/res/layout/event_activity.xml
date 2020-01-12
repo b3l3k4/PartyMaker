@@ -10,7 +10,7 @@
         android:id="@+id/toolbar4"
         android:layout_width="0dp"
         android:layout_height="66dp"
-        android:background="@color/colorBackground"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,25 +18,23 @@
 
     <ImageButton
         android:id="@+id/backwardArrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/colorBackground"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/half_arrow"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/backward_arrow" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageButton
         android:id="@+id/profileSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/colorBackground"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/pencil_edit_button"
+        app:layout_constraintBottom_toBottomOf="@+id/backwardArrow"
         app:layout_constraintEnd_toEndOf="@+id/toolbar4"
-        app:layout_constraintTop_toTopOf="@+id/toolbar4"
-        app:srcCompat="@drawable/settings_icon" />
+        app:layout_constraintTop_toTopOf="@+id/backwardArrow" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -59,7 +57,8 @@
                 android:id="@+id/partyName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/open_sans"
                 android:text="@string/PartyName"
                 android:textColor="@color/colorWordsMain"
                 android:textSize="22sp"
@@ -73,15 +72,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_begin="600dp" />
+                app:layout_constraintGuide_begin="800dp" />
 
 
             <ImageView
                 android:id="@+id/venueImage"
-                android:layout_width="133dp"
-                android:layout_height="119dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="26dp"
+                android:layout_width="165dp"
+                android:layout_height="141dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/partyName"
                 app:srcCompat="@mipmap/ic_launcher" />
@@ -91,12 +90,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
-                android:linksClickable="true"
                 android:autoLink="web"
+                android:fontFamily="@font/open_sans"
+                android:linksClickable="true"
                 android:text="@string/MoreInfo"
-                android:textColor="@color/colorWordsAdditional"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/venueImage" />
@@ -106,18 +107,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/open_sans"
                 android:text="@string/VenueName"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:autoSizeMaxTextSize="18sp"
+                android:autoSizeMinTextSize="15sp"
+                android:autoSizeStepGranularity="1sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/venueImage"
-                app:layout_constraintTop_toTopOf="@+id/venueImage" />
+                app:layout_constraintTop_toTopOf="@+id/venueImage"
+                tools:targetApi="o" />
 
             <TextView
                 android:id="@+id/venuePrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/open_sans"
                 android:text="@string/VenuePrice"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -129,6 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/open_sans"
                 android:text="@string/VenueAttendants"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -137,9 +145,11 @@
 
             <View
                 android:id="@+id/view"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="2dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="32dp"
                 android:background="@color/colorWordsMain"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -149,10 +159,11 @@
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="40dp"
-                android:textColor="@color/colorWordsMain"
+                android:fontFamily="@font/open_sans"
                 android:text="@string/Date"
+                android:textColor="@color/colorWordsMain"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/venueMoreInfo" />
@@ -162,6 +173,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
+                android:fontFamily="@font/open_sans"
                 android:text="@string/Location"
                 android:textColor="@color/colorWordsMain"
                 android:textSize="18sp"
@@ -174,26 +186,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="32dp"
-                android:ems="10"
                 android:backgroundTint="@color/colorWordsMain"
+                android:ems="10"
                 android:inputType="textPersonName"
                 app:layout_constraintBottom_toBottomOf="@+id/textView17"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView17"
-                app:layout_constraintTop_toTopOf="@+id/textView17" />
+                app:layout_constraintTop_toTopOf="@+id/textView17"
+                tools:targetApi="lollipop" />
 
             <EditText
                 android:id="@+id/editDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
-                android:ems="10"
                 android:backgroundTint="@color/colorWordsMain"
+                android:ems="10"
                 android:inputType="date"
                 app:layout_constraintBottom_toBottomOf="@+id/textView15"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/editLocation"
-                app:layout_constraintTop_toTopOf="@+id/textView15" />
+                app:layout_constraintTop_toTopOf="@+id/textView15"
+                tools:targetApi="lollipop" />
 
             <EditText
                 android:id="@+id/editExpenses"
@@ -205,13 +219,15 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView19"
                 app:layout_constraintEnd_toEndOf="@+id/editLocation"
                 app:layout_constraintStart_toStartOf="@+id/editLocation"
-                app:layout_constraintTop_toTopOf="@+id/textView19" />
+                app:layout_constraintTop_toTopOf="@+id/textView19"
+                tools:targetApi="lollipop" />
 
             <TextView
                 android:id="@+id/textView19"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
+                android:fontFamily="@font/open_sans"
                 android:text="@string/Expenses"
                 android:textAlignment="center"
                 android:textColor="@color/colorWordsMain"
@@ -224,8 +240,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:textColor="@color/colorWordsMain"
+                android:fontFamily="@font/open_sans"
                 android:text="@string/PartyDes"
+                android:textColor="@color/colorWordsMain"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/textView19"
                 app:layout_constraintTop_toBottomOf="@+id/textView19" />
@@ -234,28 +251,57 @@
                 android:id="@+id/editDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:backgroundTint="@color/colorWordsMain"
+                android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 app:layout_constraintBottom_toBottomOf="@+id/textView18"
                 app:layout_constraintEnd_toEndOf="@+id/editExpenses"
                 app:layout_constraintStart_toStartOf="@+id/editExpenses"
-                app:layout_constraintTop_toTopOf="@+id/textView18" />
+                app:layout_constraintTop_toTopOf="@+id/textView18"
+                tools:targetApi="lollipop" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp"
+                android:fontFamily="@font/open_sans"
+                android:text="@string/Attendants"
+                android:textColor="@color/black"
+                android:textSize="19sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+            <ListView
+                android:id="@+id/attendantsView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
-    <ImageButton
+    <Button
         android:id="@+id/addMemberButton"
-        android:layout_width="63dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/white"
-        android:src="@android:drawable/ic_menu_add"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/legit_button"
+        android:text="@string/INVITE"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

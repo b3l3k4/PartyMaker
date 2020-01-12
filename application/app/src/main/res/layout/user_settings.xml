@@ -13,6 +13,7 @@
         android:layout_height="63dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,27 +21,28 @@
 
     <ImageButton
         android:id="@+id/backwardArrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:background="@color/white"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/half_arrow"
         app:layout_constraintStart_toStartOf="@+id/toolbar2"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2"
-        app:srcCompat="@drawable/backward_arrow" />
+        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:text="@string/Settings"
+        android:fontFamily="@font/open_sans"
+        android:textColor="@color/colorWordsMain"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="@color/colorWordsMain"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintBottom_toBottomOf="@+id/backwardArrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
+        app:layout_constraintTop_toTopOf="@+id/backwardArrow" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -59,10 +61,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
         android:layout_marginTop="24dp"
+        android:fontFamily="@font/open_sans"
         android:text="@string/FullName"
         android:textColor="@color/colorWordsMain"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton" />
 
@@ -83,10 +85,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/open_sans"
         android:text="@string/OldPass"
         android:textColor="@color/colorWordsMain"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/userName"
         app:layout_constraintTop_toBottomOf="@+id/userDes" />
 
@@ -95,10 +97,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/open_sans"
         android:text="@string/NewPass"
         android:textColor="@color/colorWordsMain"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/oldPass"
         app:layout_constraintTop_toBottomOf="@+id/oldPass" />
 
@@ -107,10 +109,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/open_sans"
         android:text="@string/AddDescription"
         android:textColor="@color/colorWordsMain"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/newPass"
         app:layout_constraintTop_toBottomOf="@+id/userName" />
 
@@ -128,12 +130,14 @@
 
     <Button
         android:id="@+id/saveChanges"
-        android:layout_width="120dp"
-        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
         android:layout_marginBottom="32dp"
-        android:background="@color/colorLogInWords"
+        android:background="@drawable/legit_button"
         android:text="@string/SaveChanges"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

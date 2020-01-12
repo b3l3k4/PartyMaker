@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/venueImage"
-        android:layout_width="133dp"
-        android:layout_height="119dp"
+        android:layout_width="165dp"
+        android:layout_height="141dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,13 +21,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="26dp"
         android:text="@string/VenueName"
+        android:fontFamily="@font/open_sans"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:autoSizeTextType="uniform"
+        android:textSize="19sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/venueImage"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="o" />
 
     <TextView
         android:id="@+id/venuePrice"
@@ -36,6 +40,7 @@
         android:layout_marginTop="8dp"
         android:textColor="@color/black"
         android:text="@string/VenuePrice"
+        android:fontFamily="@font/open_sans"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/venueImage"
         app:layout_constraintTop_toBottomOf="@+id/venueName" />
@@ -48,6 +53,7 @@
         android:layout_marginTop="8dp"
         android:textColor="@color/black"
         android:text="@string/VenueAttendants"
+        android:fontFamily="@font/open_sans"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/venueImage"
         app:layout_constraintTop_toBottomOf="@+id/venuePrice" />
