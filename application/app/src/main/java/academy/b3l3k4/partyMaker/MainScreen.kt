@@ -29,6 +29,10 @@ class MainScreen: AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_screen)
 
+        if(intent.getBooleanExtra("EXIT", false)){
+            finish()
+        }
+
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         actionBar?.hide()
 
@@ -135,7 +139,19 @@ class MainScreen: AppCompatActivity(){
                     if(drawer!!.isDrawerOpen(GravityCompat.START)){
                         drawer!!.closeDrawer(GravityCompat.START)
                     }
-                    startActivity(Intent(this@MainScreen, UserSettings::class.java))
+
+                    readDataUser(object: FirebaseCallbackUser{
+                        override fun onCallBack(user: User) {
+                            val intentSettings = Intent(this@MainScreen, UserSettings::class.java)
+                            val userName = "${user.firstName} ${user.lastName}"
+                            val description = user.description
+                            intentSettings.putExtra("nameUser", userName)
+                            intentSettings.putExtra("descriptionUser", description)
+                            startActivity(intentSettings)
+                        }
+                    })
+
+//                    startActivity(Intent(this@MainScreen, UserSettings::class.java))
                     true
                 }
                 R.id.nav_createEvent ->{
@@ -245,6 +261,23 @@ class MainScreen: AppCompatActivity(){
         })
     }
 
+    private fun readDataUser(firebaseCallbackUser: FirebaseCallbackUser){
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+        val userReference = FirebaseDatabase.getInstance().getReference("Users").child(userId)
+
+        userReference.addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val data = dataSnapshot.getValue(User::class.java)
+                firebaseCallbackUser.onCallBack(data!!)
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                Log.e("DB", p0.message)
+            }
+        })
+
+    }
+
 
     private interface FirebaseCallback{
         fun onCallback(list: MutableList<Party>)
@@ -254,16 +287,21 @@ class MainScreen: AppCompatActivity(){
         fun onCallback(member: Member)
     }
 
+    private interface FirebaseCallbackUser{
+        fun onCallBack(user: User)
+    }
+
 
     override fun onBackPressed() {
 
         if(drawer!!.isDrawerOpen(GravityCompat.START)){
             drawer!!.closeDrawer(GravityCompat.START)
-        } else if(!drawer!!.isDrawerOpen(GravityCompat.START) && backPressedTime!!.plus(2000) > System.currentTimeMillis()){
+        } else {
             super.onBackPressed()
-            return
-        } else{
-            Toast.makeText(this, "Please click back again to EXIT", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.putExtra("EXIT", true)
+            startActivity(intent)
         }
     }
 }
