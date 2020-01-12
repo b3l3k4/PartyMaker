@@ -13,11 +13,15 @@ class Party{
     var max_capacity: String? = null
     var id: String? = null
     var category: String? = null
+    var uid: String? = null
+    var location: String? = null
+    var expenses: String? = null
 
     constructor(){}
 
     constructor(title: String?, date: String?, description: String?, approximatePrice: String?, attendants: String?, price: String?,
-                name: String?, id: String?, image_url: String?,advert_url: String?,max_capacity: String?, category: String?){
+                name: String?, id: String?, image_url: String?,advert_url: String?,max_capacity: String?, category: String?, uid: String?,
+                location: String?, expenses: String?){
         this.title = title
         this.date = date
         this.description = description
@@ -30,10 +34,13 @@ class Party{
         this.max_capacity = max_capacity
         this.id = id
         this.category = category
+        this.uid = uid
+        this.location = location
+        this.expenses = expenses
     }
 
     override fun toString(): String {
-        return "$name,$price,$max_capacity,$advert_url,$image_url,$id"
+        return "$name,$price,$max_capacity,$advert_url,$image_url,$id,$date,$title,$description,$uid,$location,$expenses"
 
     }
 }

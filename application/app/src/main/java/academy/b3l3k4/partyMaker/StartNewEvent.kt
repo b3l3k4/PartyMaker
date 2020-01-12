@@ -1,5 +1,7 @@
 package academy.b3l3k4.partyMaker
 
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -22,13 +24,15 @@ class StartNewEvent:AppCompatActivity() {
     private var textAttendants: EditText? = null
 
     private var mDatabaseReference: DatabaseReference? = null
-    private var mDatabase: FirebaseDatabase? = null
 
     private val TAG = "activity manager"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.start_new_event)
+
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
 
         Log.d(TAG,"On create started")
 
@@ -38,10 +42,13 @@ class StartNewEvent:AppCompatActivity() {
         textPrice = findViewById(R.id.textPrice)
         textAttendants = findViewById(R.id.textAttendants)
 
+        textDate!!.isEnabled = false
+
         val backwardArrow: ImageButton = findViewById(R.id.backwardArrow)
 
         val buttonVenue: Button = findViewById(R.id.buttonVenue)
         val buttonCreate: Button = findViewById(R.id.buttonCreate)
+        val calendarButton: ImageButton = findViewById(R.id.calendarButton)
 
         if(intent.getStringArrayExtra("insertedData") != null){
             val dataArray: Array<String> = intent.getStringArrayExtra("insertedData")!!
@@ -77,6 +84,22 @@ class StartNewEvent:AppCompatActivity() {
             }
         })
 
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        calendarButton.setOnClickListener(object: View.OnClickListener{
+            @SuppressLint("SetTextI18n")
+            override fun onClick(v: View?) {
+                val dpd = DatePickerDialog(this@StartNewEvent, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    // Display Selected date in TextView
+                    textDate!!.setText("" + dayOfMonth + "/" + (monthOfYear + 1) + "/" + year)
+                }, year, month, day)
+                dpd.show()
+            }
+        })
+
         buttonCreate.setOnClickListener { createNewEvent() }
 
     }
@@ -88,7 +111,7 @@ class StartNewEvent:AppCompatActivity() {
         val approximatePrice = textPrice!!.text.toString()
         val attendants = textAttendants!!.text.toString()
 
-        var party1 = Party(title, date, description, approximatePrice, attendants,"","","","","","","")
+        var party1 = Party(title, date, description, approximatePrice, attendants,"","","","","","","","","","")
 
         if(intent.getStringExtra("pavadinimas") != null) {
             party1.name = intent.getStringExtra("pavadinimas")
@@ -97,6 +120,7 @@ class StartNewEvent:AppCompatActivity() {
             party1.advert_url = intent.getStringExtra("psl_nuoroda")
             party1.image_url = intent.getStringExtra("foto_nuoroda")
             party1.id = intent.getStringExtra("id")
+            party1.uid = ""
         }
 
         if(!TextUtils.isEmpty(title) && !TextUtils.isEmpty(date)){
@@ -111,7 +135,25 @@ class StartNewEvent:AppCompatActivity() {
         mDatabaseReference = FirebaseDatabase.getInstance().reference.child("Events")
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
         val eventID = FirebaseDatabase.getInstance().getReference().push().key.toString()
+        party.uid = eventID
         mDatabaseReference!!.child(userId).child(eventID).setValue(party)
+
+        val userReference = FirebaseDatabase.getInstance().getReference("Users").child(userId)
+
+        userReference.addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val userInfo = dataSnapshot.getValue<User>(User::class.java)
+                val fullName = userInfo!!.firstName + " " + userInfo.lastName
+                val member = Member( "admin", userId, fullName, userId)
+
+                val eventMemberReference = FirebaseDatabase.getInstance().reference.child("EventMembers")
+                eventMemberReference.child(eventID).child(userId).setValue(member)
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
     }
 
     private fun updateLayout(){

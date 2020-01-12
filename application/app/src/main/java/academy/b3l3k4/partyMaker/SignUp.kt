@@ -88,7 +88,7 @@ class SignUp : AppCompatActivity() {
 
                         verifyEmail()
 
-                        val user = User(email, firstName, lastName, password, "")
+                        val user = User(email, firstName, lastName, password, "", userID)
 
                         mDatabaseReference!!.child(userID).setValue(user)
 

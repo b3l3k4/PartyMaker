@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -24,11 +26,27 @@ class UserSettings:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user_settings)
 
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
+
+        val backwardArrow: ImageButton = findViewById(R.id.backwardArrow)
+
+        print(intent.getStringExtra("nameUser"))
+
+        backwardArrow.setOnClickListener(object: View.OnClickListener{
+            override fun onClick(v: View?) {
+                startActivity(Intent(this@UserSettings, MainScreen::class.java))
+            }
+        })
+
         userName = findViewById(R.id.userName)
         oldPass= findViewById(R.id.oldPass)
         newPass = findViewById(R.id.newPass)
         userDes = findViewById(R.id.userDes)
         val saveChangesButton: Button = findViewById(R.id.saveChanges)
+
+        userName!!.hint = (intent.getStringExtra("nameUser"))
+        userDes!!.hint = intent.getStringExtra("descriptionUser")
 
         saveChangesButton.setOnClickListener{sendData()}
     }
@@ -69,10 +87,25 @@ class UserSettings:AppCompatActivity() {
             })
         }
 
+        val userName = intent.getStringExtra("nameUser")
+        val userDes = intent.getStringExtra("descriptionUser")
+        val splitUser = userName!!.split(" ").toList()
+
         val intent = Intent(this@UserSettings, UserProfile::class.java)
-        intent.putExtra("userName", splitName[0])
-        intent.putExtra("userSecondName", splitName[1])
-        intent.putExtra("userDescription", des)
+        if(!TextUtils.isEmpty(name)){
+            intent.putExtra("userName", splitName[0])
+            intent.putExtra("userSecondName", splitName[1])
+        }else{
+            intent.putExtra("userName", splitUser[0])
+            intent.putExtra("userSecondName", splitUser[1])
+
+        }
+        if(!TextUtils.isEmpty(des)){
+            intent.putExtra("userDescription", des)
+        } else{
+            intent.putExtra("userDescription", userDes!!)
+        }
+
         startActivity(intent)
 
     }

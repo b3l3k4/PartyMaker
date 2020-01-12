@@ -5,11 +5,25 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity: AppCompatActivity(){
 
+    private var mAuth: FirebaseAuth? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if(intent.getBooleanExtra("EXIT", false)){
+            finish()
+        }
+
+        mAuth = FirebaseAuth.getInstance()
+
+        if(mAuth!!.currentUser != null){
+            startActivity(Intent(this@MainActivity, MainScreen::class.java))
+        }
+
         setContentView(R.layout.main_activity)
 
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -29,5 +43,13 @@ class MainActivity: AppCompatActivity(){
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        intent.putExtra("EXIT", true)
+        startActivity(intent)
     }
 }
