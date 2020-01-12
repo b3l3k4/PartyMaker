@@ -46,19 +46,23 @@ class FindVenue: AppCompatActivity() {
 
             addVenue.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
-                    val intent = Intent(this@FindVenue, StartNewEvent::class.java)
-                    intent.putExtra("pavadinimas", data[0])
-                    intent.putExtra("kaina", data[1])
-                    intent.putExtra("zmones", data[2])
-                    intent.putExtra("psl_nuoroda", data[3])
-                    intent.putExtra("foto_nuoroda", data[4])
-                    intent.putExtra("id", data[5])
-                    print(intent.getStringExtra("pavadinimas"))
-                    startActivity(intent)
+                    val intentVenue = Intent(this@FindVenue, StartNewEvent::class.java)
+                    intentVenue.putExtra("pavadinimas", data[0])
+                    intentVenue.putExtra("kaina", data[1])
+                    intentVenue.putExtra("zmones", data[2])
+                    intentVenue.putExtra("psl_nuoroda", data[3])
+                    intentVenue.putExtra("foto_nuoroda", data[4])
+                    intentVenue.putExtra("id", data[5])
+
+                    if(intent.getStringArrayExtra("insertedData") != null){
+                        val dataArray: Array<String> = intent.getStringArrayExtra("insertedData")!!
+                        intentVenue.putExtra("insertedData", dataArray)
+                    }
+                    print(intentVenue.getStringExtra("pavadinimas"))
+                    startActivity(intentVenue)
                 }
             })
         }
-
     }
 
     private fun readData(firebaseCallback: FireBaseCallback){
