@@ -54,9 +54,9 @@
         app:layout_constraintTop_toTopOf="@+id/backwardArrow" />
 
     <ImageView
-        android:id="@+id/user_picture"
-        android:layout_width="87dp"
-        android:layout_height="75dp"
+        android:id="@+id/userPicture"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +76,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_picture" />
+        app:layout_constraintTop_toBottomOf="@+id/userPicture" />
 
     <TextView
         android:id="@+id/userDescription"

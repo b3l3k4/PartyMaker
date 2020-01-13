@@ -3,19 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="academy.b3l3k4.partyMaker">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:logo="@drawable/legit_logo"
+        android:appCategory="social"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning"
-        android:usesCleartextTraffic="true">
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,17 +28,65 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SignUp"/>
-        <activity android:name=".LogIn"/>
-        <activity android:name=".MainScreen"/>
-        <activity android:name=".ForgotPasswordActivity"/>
-        <activity android:name=".UserProfile"/>
-        <activity android:name=".UserSettings"/>
-        <activity android:name=".StartNewEvent"/>
-        <activity android:name=".EventCreated"/>
-        <activity android:name=".FindVenue"/>
-        <activity android:name=".WebView"/>
-        <activity android:name=".EventActivity"/>
+        <service android:name=".MyFirebaseInstanceIdService"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".SignUp"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".LogIn"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainScreen"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UserProfile"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UserSettings"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".StartNewEvent"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".EventCreated"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".FindVenue"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".WebView"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".EventActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".AddNewMember"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".NotificationActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".EventActivityMember"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".NotificationActivityEmpty"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".EventSettings"
+            android:screenOrientation="portrait"/>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
     </application>
 

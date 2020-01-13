@@ -3,21 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="0dp"
         android:layout_height="63dp"
+        android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <ImageButton
         android:id="@+id/backwardArrow"
@@ -44,128 +43,133 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/backwardArrow" />
 
-    <ImageView
-        android:id="@+id/profilePicture"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
-        app:srcCompat="@mipmap/ic_launcher" />
-
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="120dp"
         android:fontFamily="@font/open_sans"
-        android:text="@string/FullName"
-        android:textColor="@color/colorWordsMain"
+        android:text="@string/Date"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <EditText
-        android:id="@+id/userName"
+        android:id="@+id/dateSettings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="82dp"
+        android:backgroundTint="@color/black"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView22"
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/Location"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/dateSettings"
+        app:layout_constraintTop_toBottomOf="@+id/dateSettings" />
+
+    <EditText
+        android:id="@+id/locationSettings"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:ems="10"
-        android:backgroundTint="@color/colorWordsMain"
+        android:backgroundTint="@color/black"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintStart_toStartOf="@+id/textView23"
+        app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/textView24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/open_sans"
-        android:text="@string/OldPass"
-        android:textColor="@color/colorWordsMain"
+        android:text="@string/Expenses"
+        android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/userName"
-        app:layout_constraintTop_toBottomOf="@+id/userDes" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/open_sans"
-        android:text="@string/NewPass"
-        android:textColor="@color/colorWordsMain"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/oldPass"
-        app:layout_constraintTop_toBottomOf="@+id/oldPass" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/open_sans"
-        android:text="@string/AddDescription"
-        android:textColor="@color/colorWordsMain"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/newPass"
-        app:layout_constraintTop_toBottomOf="@+id/userName" />
+        app:layout_constraintStart_toStartOf="@+id/locationSettings"
+        app:layout_constraintTop_toBottomOf="@+id/locationSettings" />
 
     <EditText
-        android:id="@+id/userDes"
+        android:id="@+id/expensesSettings"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/colorWordsMain"
         android:ems="10"
+        android:backgroundTint="@color/black"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/userName"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintStart_toStartOf="@+id/textView24"
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/PartyDes"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/expensesSettings"
+        app:layout_constraintTop_toBottomOf="@+id/expensesSettings" />
+
+    <EditText
+        android:id="@+id/descriptionSettings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:backgroundTint="@color/black"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView25"
+        app:layout_constraintTop_toBottomOf="@+id/textView25"
+        tools:ignore="UnusedAttribute" />
 
     <Button
-        android:id="@+id/saveChanges"
+        android:id="@+id/saveButton"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/legit_button"
+        android:fontFamily="@font/open_sans"
         android:text="@string/SaveChanges"
         android:textColor="@color/white"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/SaveChanges" />
 
-    <EditText
-        android:id="@+id/oldPass"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/calendar"
+        android:layout_width="40dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/colorWordsMain"
-        android:ems="10"
-        android:inputType="textPassword"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/calendar"
+        app:layout_constraintBottom_toBottomOf="@+id/dateSettings"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/userDes"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-    <EditText
-        android:id="@+id/newPass"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/colorWordsMain"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/oldPass"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintStart_toEndOf="@+id/dateSettings"
+        app:layout_constraintTop_toTopOf="@+id/dateSettings" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
