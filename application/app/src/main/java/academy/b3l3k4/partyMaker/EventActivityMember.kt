@@ -1,6 +1,7 @@
 package academy.b3l3k4.partyMaker
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -83,8 +84,10 @@ class EventActivityMember: AppCompatActivity() {
 
         venueMoreInfo.setOnClickListener(object: View.OnClickListener{
             override fun onClick(v: View?) {
-                val webIntent = Intent(this@EventActivityMember, WebView::class.java)
-                webIntent.putExtra("URL", intent.getStringExtra("psl_nuoroda"))
+                val url = intent.getStringExtra("psl_nuoroda")
+                val webIntent: Intent = Uri.parse(url).let{ webpage ->
+                    Intent(Intent.ACTION_VIEW, webpage)
+                }
                 startActivity(webIntent)
             }
         })
@@ -115,4 +118,11 @@ class EventActivityMember: AppCompatActivity() {
     private interface FirebaseCallback{
         fun onCalback(list: MutableList<Member>)
     }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, MainScreen::class.java)
+        intent.flags  = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+    }
+
 }

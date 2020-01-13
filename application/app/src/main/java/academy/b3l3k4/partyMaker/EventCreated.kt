@@ -22,4 +22,10 @@ class EventCreated: AppCompatActivity() {
             }
         })
     }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, MainScreen::class.java)
+        intent.flags  = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+    }
 }

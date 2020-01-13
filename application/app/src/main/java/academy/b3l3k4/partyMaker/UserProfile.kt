@@ -1,17 +1,24 @@
 package academy.b3l3k4.partyMaker
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.renderscript.Sampler
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import java.lang.Exception
 
 class UserProfile:AppCompatActivity() {
 
@@ -29,6 +36,26 @@ class UserProfile:AppCompatActivity() {
         val userDescription: TextView = findViewById(R.id.userDescription)
         val activityList: ListView = findViewById(R.id.activityList)
         val userSettings: ImageButton = findViewById(R.id.profileSettings)
+        val userPicture: ImageView = findViewById(R.id.userPicture)
+
+        val userPictureId = FirebaseAuth.getInstance().currentUser!!.uid
+        val storageReference = FirebaseStorage.getInstance().reference.child("profile_pictures/").child(userPictureId)
+
+        storageReference.downloadUrl.addOnSuccessListener(object: OnSuccessListener<Uri>{
+            override fun onSuccess(uri: Uri?) {
+                Glide.with(this@UserProfile)
+                    .load(uri)
+                    .fitCenter()
+                    .into(userPicture)
+            }
+        }).addOnFailureListener(object: OnFailureListener{
+            override fun onFailure(p0: Exception) {
+                userPicture.setImageResource(R.mipmap.ic_launcher)
+            }
+        })
+
+
+
 
         //set TextViews
         if(intent.getStringExtra("userName") == null){
@@ -83,6 +110,8 @@ class UserProfile:AppCompatActivity() {
             intentAdmin.putExtra("title", data[7])
             intentAdmin.putExtra("des", data[8])
             intentAdmin.putExtra("uid", data[9])
+            intentAdmin.putExtra("location", data[10])
+            intentAdmin.putExtra("expenses", data[11])
             intentAdmin.putExtra("position", position)
 
             intentMember.putExtra("pavadinimas", data[0])
@@ -95,6 +124,8 @@ class UserProfile:AppCompatActivity() {
             intentMember.putExtra("title", data[7])
             intentMember.putExtra("des", data[8])
             intentMember.putExtra("uid", data[9])
+            intentAdmin.putExtra("location", data[10])
+            intentAdmin.putExtra("expenses", data[11])
             intentMember.putExtra("position", position)
 
             val memberReference = FirebaseDatabase.getInstance().getReference("EventMembers").child(data[9]).child(userId)
@@ -118,25 +149,10 @@ class UserProfile:AppCompatActivity() {
 
         userSettings.setOnClickListener(object: View.OnClickListener{
             override fun onClick(v: View?) {
+                finish()
                 startActivity(intentSettings)
             }
         })
-
-        //goto user profile settings
-//        userSettings.setOnClickListener(object : View.OnClickListener {
-//            override fun onClick(v: View?) {
-//                readDataUser(object : FirebaseCallbackUser{
-//                    override fun onCallBack(user: User) {
-//                        val intentUser = Intent(this@UserProfile, UserSettings::class.java)
-//                        val fullName = "${user.firstName} ${user.lastName}"
-//                        val description = user.description.toString()
-//                        intentUser.putExtra("nameUser", fullName)
-//                        intentUser.putExtra("descriptionUser", description)
-//                        startActivity(Intent(this@UserProfile, UserSettings::class.java))
-//                    }
-//                })
-//            }
-//        })
 
     }
 
@@ -209,5 +225,11 @@ class UserProfile:AppCompatActivity() {
 
     private interface FirebaseCallbackUser{
         fun onCallBack(user: User)
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, MainScreen::class.java)
+        intent.flags  = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
     }
 }

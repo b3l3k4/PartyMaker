@@ -3,6 +3,7 @@ package academy.b3l3k4.partyMaker
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -21,9 +22,10 @@ private var party: MutableList<Party> = mutableListOf()
 
 class MainScreen: AppCompatActivity(){
 
+    var BackPress = false
+
     private var drawer: DrawerLayout? = null
     private var mDatabaseReference: DatabaseReference? = null
-    private var backPressedTime: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -293,15 +295,18 @@ class MainScreen: AppCompatActivity(){
 
 
     override fun onBackPressed() {
-
         if(drawer!!.isDrawerOpen(GravityCompat.START)){
             drawer!!.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            intent.putExtra("EXIT", true)
+        } else if(BackPress){
+            val intent = Intent(Intent.ACTION_MAIN)
+            intent.addCategory(Intent.CATEGORY_HOME)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
         }
+
+        BackPress = true
+        Handler().postDelayed({ BackPress = false }, 2000)
     }
+
+
 }

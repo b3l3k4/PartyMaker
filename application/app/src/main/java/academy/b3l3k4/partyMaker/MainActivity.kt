@@ -35,12 +35,14 @@ class MainActivity: AppCompatActivity(){
         logIn.setOnClickListener {
             val intent = Intent(this@MainActivity, LogIn::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            finish()
             startActivity(intent)
         }
 
         signUp.setOnClickListener {
             val intent = Intent(this@MainActivity, SignUp::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            finish()
             startActivity(intent)
         }
     }

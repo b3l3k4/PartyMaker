@@ -170,4 +170,10 @@ class StartNewEvent:AppCompatActivity() {
         super.onResume()
         Log.d(TAG, "activity resumed")
     }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, MainScreen::class.java)
+        intent.flags  = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+    }
 }

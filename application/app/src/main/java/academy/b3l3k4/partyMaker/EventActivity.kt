@@ -1,6 +1,7 @@
 package academy.b3l3k4.partyMaker
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -16,6 +17,11 @@ import kotlin.math.exp
 class EventActivity: AppCompatActivity() {
 
     var memberList: MutableList<Member> = mutableListOf()
+
+    var date: String? = null
+    var expenses: String? = null
+    var location: String? = null
+    var des: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +47,6 @@ class EventActivity: AppCompatActivity() {
         val editDescription: EditText = findViewById(R.id.editDescription)
 
         val addMember: Button = findViewById(R.id.addMemberButton)
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
-
 
         //backward arrow on click
         backwardArrow.setOnClickListener(object: View.OnClickListener{
@@ -51,116 +55,97 @@ class EventActivity: AppCompatActivity() {
             }
         })
 
-        if(intent.getStringArrayExtra("VENUE") != null){
-            val arrayTemp = intent.getStringArrayExtra("VENUE")
-            partyName.text = arrayTemp!![0]
-            venueName.text = arrayTemp[1]
-            venuePrice.text = arrayTemp[2]
-            venueCount.text = arrayTemp[3]
+        var dataArray: Array<String>? = null
+
+        val partyNameIntent =  intent.getStringExtra("title")
+        val venueNameIntent = intent.getStringExtra("pavadinimas")
+        val venuePriceIntent  =intent.getStringExtra("kaina")
+        val venueCountIntent = intent.getStringExtra("zmones")
+        val photoIdIntent = intent.getStringExtra("id")
+        if(intent.getStringExtra("title") != null) {
+            dataArray = arrayOf(partyNameIntent!!, venueNameIntent!!, venuePriceIntent!!, venueCountIntent!!, photoIdIntent!!)
+        } else {
+            dataArray = intent.getStringArrayExtra("DATA")
+        }
+
+        if(intent.getStringArrayExtra("DATA") != null) {
+            val intentArray: Array<String> = intent.getStringArrayExtra("DATA")!!
+            print("VSIKAS LIT")
+            print("LIT")
+            partyName.text = intentArray[0]
+            venueName.text = intentArray[1]
+            venuePrice.text = intentArray[2]
+            venueCount.text = intentArray[3]
         } else{
-            partyName.text = intent.getStringExtra("title")
-            venueName.text = intent.getStringExtra("pavadinimas")
-            venuePrice.text = intent.getStringExtra("kaina")
-            venueCount.text = intent.getStringExtra("zmones")
+            partyName.text = partyNameIntent
+            venueName.text = venueNameIntent
+            venuePrice.text = venuePriceIntent
+            venueCount.text = venueCountIntent
         }
 
 
-        if(intent.getStringArrayExtra("DATA") != null){
-            val arrayTemp = intent.getStringArrayExtra("DATA")
-            editDate.setText(arrayTemp!![0])
-            editLocation.setText(arrayTemp[1])
-            editExpenses.setText(arrayTemp[2])
-            editDescription.setText(arrayTemp[3])
-        } else{
-            editDate.setText(intent.getStringExtra("data"))
-            editDescription.setText(intent.getStringExtra("des"))
-            editLocation.setText(intent.getStringExtra("location"))
-            editExpenses.setText(intent.getStringExtra("expenses"))
-        }
+        if(intent.getStringExtra("DATE") != null) editDate.setText(intent.getStringExtra("DATE"))
+            else editDate.setText(intent.getStringExtra("data"))
+        if(intent.getStringExtra("EXPENSES") != null) editExpenses.setText(intent.getStringExtra("EXPENSES"))
+            else editExpenses.setText(intent.getStringExtra("expenses"))
+        if(intent.getStringExtra("LOCATION") != null) editLocation.setText(intent.getStringExtra("LOCATION"))
+            else editLocation.setText(intent.getStringExtra("location"))
+        if(intent.getStringExtra("DESCRIPTION") != null) editDescription.setText(intent.getStringExtra("DESCRIPTION"))
+            else editDescription.setText(intent.getStringExtra("des"))
+
 
         //settings and onClickListener
-        editDate.isEnabled = false
-        editLocation.isEnabled = false
-        editExpenses.isEnabled = false
-        editDescription.isEnabled = false
+        editDate.keyListener = null
+        editLocation.keyListener = null
+        editExpenses.keyListener = null
+        editDescription.keyListener = null
 
         val attendantsList: ListView = findViewById(R.id.attendantsView)
-        val eventUid = intent.getStringExtra("uid")
 
-        print(eventUid)
+        val eventUid: String? = if(intent.getStringExtra("UID") != null){
+            intent.getStringExtra("UID")
+        } else{
+            intent.getStringExtra("uid")
+        }
 
-        readData(eventUid!!, object: FirebaseCallback{
+        readData(object: FirebaseCallback{
             override fun onCalback(list: MutableList<Member>) {
                 val adapter = CustomMemberListAdapter(this@EventActivity, R.layout.custom_member_list, list)
                 attendantsList.adapter = adapter
             }
         })
 
+        date = editDate.text.toString()
+        expenses = editExpenses.text.toString()
+        location = editLocation.text.toString()
+        des = editDescription.text.toString()
+
+        val intentSettings = Intent(this@EventActivity, EventSettings::class.java)
+        intentSettings.putExtra("EVENT_UID", eventUid)
+        intentSettings.putExtra("DATE", date)
+        intentSettings.putExtra("EXPENSES", expenses)
+        intentSettings.putExtra("LOCATION", location)
+        intentSettings.putExtra("DESCRIPTION", des)
+        intentSettings.putExtra("DATA", dataArray)
+
 
         settings.setOnClickListener(object: View.OnClickListener{
-            var clickCounter = 0
-
             override fun onClick(v: View?) {
-
-                when {
-                    clickCounter % 2 == 0 -> {
-                        editDate.isEnabled = true
-                        editDate.isFocusable
-                        editLocation.isEnabled = true
-                        editLocation.isFocusable
-                        editExpenses.isEnabled = true
-                        editExpenses.isFocusable
-                        editDescription.isEnabled = true
-                        editDescription.isFocusable
-                    }
-                    else -> {
-                        editDate.isEnabled = false
-                        editLocation.isEnabled = false
-                        editExpenses.isEnabled = false
-                        editDescription.isEnabled = false
-
-                        val date = editDate.text.toString()
-                        val location = editLocation.text.toString()
-                        val expenses = editExpenses.text.toString()
-                        val des = editDescription.text.toString()
-
-                        editDate.setText(date)
-                        editLocation.setText(location)
-                        editExpenses.setText(expenses)
-                        editDescription.setText(des)
-
-                        val eventReference = FirebaseDatabase.getInstance().getReference("Events").child(userId).child(eventUid!!)
-
-                        if(!TextUtils.isEmpty(date)) eventReference.child("date").setValue(date)
-                        if(!TextUtils.isEmpty(location)) eventReference.child("location").setValue(location)
-                        if(!TextUtils.isEmpty(expenses)) eventReference.child("expenses").setValue(expenses)
-                        if(!TextUtils.isEmpty(des)) eventReference.child("description").setValue(des)
-
-                        val array = arrayListOf(date, location, expenses, des)
-
-                        val title: String? = intent.getStringExtra("title")
-                        val name: String? = intent.getStringExtra("pavadinimas")
-                        val price: String? = intent.getStringExtra("kaina")
-                        val count: String? = intent.getStringExtra("zmones")
-
-                        val venueArray = arrayListOf(title, name, price, count)
-                        val intentSettings = Intent(this@EventActivity, EventActivity::class.java)
-                        intentSettings.putExtra("DATA", array)
-                        intentSettings.putExtra("VENUE", venueArray)
-                        startActivity(intentSettings)
-
-                    }
-                }
-
-                clickCounter++
-
+                finish()
+                startActivity(intentSettings)
             }
         })
 
-        //download images from storage
-        val photoID = intent.getStringExtra("id")!!.toString() + ".jpg"
 
-        val storageReference = FirebaseStorage.getInstance().reference.child("images/").child(photoID)
+        //download images from storage
+        val photoID: String? = if(intent.getStringArrayExtra("DATA") != null){
+            val intentArray = intent.getStringArrayExtra("DATA")
+            intentArray!![4] + ".jpg"
+        } else{
+            intent.getStringExtra("id")!!.toString() + ".jpg"
+        }
+
+        val storageReference = FirebaseStorage.getInstance().reference.child("images/").child(photoID!!)
 
         Glide.with(this)
             .load(storageReference)
@@ -169,25 +154,43 @@ class EventActivity: AppCompatActivity() {
 
         venueMoreInfo.setOnClickListener(object: View.OnClickListener{
             override fun onClick(v: View?) {
-                val webIntent = Intent(this@EventActivity, WebView::class.java)
-                webIntent.putExtra("URL", intent.getStringExtra("psl_nuoroda"))
+//                val webIntent = Intent(this@EventActivity, WebView::class.java)
+//                webIntent.putExtra("URL", intent.getStringExtra("psl_nuoroda"))
+                val url = intent.getStringExtra("psl_nuoroda")
+                val webIntent: Intent = Uri.parse(url).let{webpage ->
+                    Intent(Intent.ACTION_VIEW, webpage)
+                }
                 startActivity(webIntent)
             }
         })
 
         addMember.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
-                    val newMemberIntent = Intent(this@EventActivity, AddNewMember::class.java)
-                    val eventTitle = intent.getStringExtra("title")
-                    newMemberIntent.putExtra("uid", eventUid)
-                    newMemberIntent.putExtra("title", eventTitle)
-                    startActivity(newMemberIntent)
+                val newMemberIntent = Intent(this@EventActivity, AddNewMember::class.java)
+                val eventTitle = intent.getStringExtra("title")
+                newMemberIntent.putExtra("uid", eventUid)
+                newMemberIntent.putExtra("title", eventTitle)
+                newMemberIntent.putExtra("EVENT_UID", eventUid)
+                newMemberIntent.putExtra("DATE", date)
+                newMemberIntent.putExtra("EXPENSES", expenses)
+                newMemberIntent.putExtra("LOCATION", location)
+                newMemberIntent.putExtra("DESCRIPTION", des)
+                newMemberIntent.putExtra("DATA", dataArray)
+
+                startActivity(newMemberIntent)
             }
         })
-
     }
 
-    private fun readData(eventUid: String?, firebaseCallback: FirebaseCallback){
+
+    private fun readData(firebaseCallback: FirebaseCallback){
+
+        val eventUid: String? = if(intent.getStringExtra("UID") != null) {
+            intent.getStringExtra("UID")
+        } else{
+            intent.getStringExtra("uid")
+        }
+
         val eventMemberReference = FirebaseDatabase.getInstance().getReference("EventMembers").child(eventUid!!)
 
         val valueEventListener = object : ValueEventListener{
@@ -206,10 +209,17 @@ class EventActivity: AppCompatActivity() {
             }
         }
 
-        eventMemberReference.addValueEventListener(valueEventListener)
+        eventMemberReference.addListenerForSingleValueEvent(valueEventListener)
     }
 
     private interface FirebaseCallback{
         fun onCalback(list: MutableList<Member>)
+    }
+
+
+    override fun onBackPressed() {
+        val intent = Intent(this, MainScreen::class.java)
+        intent.flags  = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
     }
 }

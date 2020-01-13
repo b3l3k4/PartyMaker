@@ -1,13 +1,11 @@
 package academy.b3l3k4.partyMaker
 
+import android.content.Intent
 import android.text.Editable
 import android.os.Bundle
 import android.text.TextWatcher
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +28,27 @@ class AddNewMember: AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         actionBar?.hide()
 
+//        val backArrow: ImageButton = findViewById(R.id.backwardArrow)
+
+//        backArrow.setOnClickListener(object: View.OnClickListener{
+//            override fun onClick(v: View?) {
+//                val intentEvent = Intent(this@AddNewMember, EventActivity::class.java)
+//                if(intent.getStringArrayExtra("DATA") != null){
+//                    val dataArray= intent.getStringArrayExtra("DATA")!!
+//                    intentEvent.putExtra("DATA", dataArray)
+//                }
+//                val eventUid = intent.getStringExtra("EVENT_UID")
+//                intentEvent.putExtra("UID", eventUid)
+//                intentEvent.putExtra("DATE", intent.getStringExtra("DATE"))
+//                intentEvent.putExtra("EXPENSES", intent.getStringExtra("EXPENSES"))
+//                intentEvent.putExtra("LOCATION", intent.getStringExtra("LOCATION"))
+//                intentEvent.putExtra("DESCRIPTION", intent.getStringExtra("DESCRIPTION"))
+//                intentEvent.putExtra("TITLE", intent.getStringExtra("title"))
+//
+//                startActivity(intentEvent)
+//            }
+//        })
+
         val searchBar: MaterialSearchBar = findViewById(R.id.searchBar)
 
         searchBar.setHint("Search..")
@@ -42,8 +61,10 @@ class AddNewMember: AppCompatActivity() {
         val notificationReference = FirebaseDatabase.getInstance().reference.child("Notifications")
 
         val currentUser = FirebaseAuth.getInstance().currentUser!!.uid
+
         val currentEvent = intent.getStringExtra("uid")!!.toString()
-        val currentEventTitle = intent.getStringExtra("title")!!.toString()
+
+        val currentEventTitle = intent.getStringExtra("title")
 
         readData(object : FirebaseCallback{
             override fun onCallback(list: List<User>) {
@@ -139,5 +160,11 @@ class AddNewMember: AppCompatActivity() {
 
     private interface FirebaseCallback{
         fun onCallback(list: List<User>)
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, MainScreen::class.java)
+        intent.flags  = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
     }
 }

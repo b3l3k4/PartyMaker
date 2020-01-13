@@ -33,7 +33,12 @@ class FindVenue: AppCompatActivity() {
 
         backwardButton.setOnClickListener(object: View.OnClickListener{
             override fun onClick(v: View?) {
-                startActivity(Intent(this@FindVenue, StartNewEvent::class.java))
+                val intentVenue = Intent(this@FindVenue, StartNewEvent::class.java)
+                if(intent.getStringArrayExtra("insertedData") != null){
+                    val dataArray: Array<String> = intent.getStringArrayExtra("insertedData")!!
+                    intentVenue.putExtra("insertedData", dataArray)
+                }
+                startActivity(intentVenue)
             }
         })
 
@@ -104,4 +109,5 @@ class FindVenue: AppCompatActivity() {
     private interface FireBaseCallback{
         fun onCallback(list: MutableList<Party>)
     }
+
 }
