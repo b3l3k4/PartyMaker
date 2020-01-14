@@ -65,7 +65,7 @@
             android:fontFamily="@font/open_sans"
             android:text="@string/VenuePrice"
             android:textColor="@color/black"
-            android:textSize="19sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/venueImage"
             app:layout_constraintTop_toBottomOf="@+id/venueName" />
 
@@ -78,7 +78,7 @@
             android:fontFamily="@font/open_sans"
             android:text="@string/VenueAttendants"
             android:textColor="@color/black"
-            android:textSize="19sp"
+            android:textSize="18sp"
             app:autoSizeMaxTextSize="@dimen/MaxTextSize"
             app:layout_constraintStart_toEndOf="@+id/venueImage"
             app:layout_constraintTop_toBottomOf="@+id/venuePrice" />

@@ -16,6 +16,12 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
             android:title="@string/UserSettings" />
+
+        <item
+            android:id="@+id/nav_npotifications"
+            android:icon="@drawable/notification"
+            android:title="@string/Notifications"/>
+
         <item
             android:id="@+id/logout_user"
             android:icon="@drawable/logout_good"

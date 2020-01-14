@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">partyMaker</string>
     <string name="FirstName">First Name</string>
     <string name="LastName">Last Name</string>
@@ -48,5 +48,12 @@
     <string name="Members">MEMBERS</string>
     <string name="Location">LOCATION</string>
     <string name="Expenses">EXPENSES</string>
-    <string name="LogOut">Log out</string> />
+    <string name="LogOut">Log out</string>
+    <string name="INVITE">invite people</string>
+    <string name="Notifications">Notifications</string>
+    <string name="Accept">ACCEPT</string>
+    <string name="Remove">REMOVE</string>
+    <string name="NextTime" tools:ignore="StringEscaping">IT IS EMPTY IN HERE</string>
+    <string name="LeaveParty">LEAVE PARTY</string>
+    />
 </resources>
